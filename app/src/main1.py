@@ -23,23 +23,23 @@ GRADIENT=ft.LinearGradient(
 
 async def main(page: ft.Page):
     async def button_exit(e):
-        await page.window_destroy_async()
-        await page.update_async()
+        page.window.destroy()
+        page.update()
     async def button_maximize(e):
         page.window.height = 1080
         page.window.width = 1920
-        await page.update_async()
+        page.update()
     async def button_minimize(e):
-        page.window_minimized=True
-        await page.update_async()
+        page.window.minimized=True
+        page.update()
     
     page.window.height = 600   
     page.window.width = 600
     page.window.resizable = True
     # page.window_movable = True
     page.title = "PAYMENTS"
-    page.window_title_bar_hidden = True
-    page.window_title_bar_buttons_hidden = True
+    page.window.title_bar_hidden = True
+    page.window.title_bar_buttons_hidden = True
     page.padding = 0
     # page.background_color = GRADIENT
     page.appbar = ft.AppBar(
