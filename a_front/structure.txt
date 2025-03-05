@@ -1,0 +1,10 @@
+a_front/
+├── assets/               
+│   └── .gitkeep         # Para mantener la carpeta en git
+├── components/          
+│   └── .gitkeep
+├── views/               
+│   └── .gitkeep
+├── utils/              
+│   └── __init__.py
+└── main.py             
