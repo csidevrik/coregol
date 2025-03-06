@@ -58,6 +58,7 @@ class HomeView extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
+                const Sidebar(), // Sidebar ahora está primero
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,13 +68,12 @@ class HomeView extends StatelessWidget {
                         padding: const EdgeInsets.all(20),
                         child: const Text(
                           'Contenido principal aquí',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Sidebar(),
               ],
             ),
           ),

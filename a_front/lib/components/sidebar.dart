@@ -131,7 +131,8 @@ class _SidebarItemState extends State<_SidebarItem> {
                 color: (isHovered || widget.isSelected)
                     ? widget.activeColor.withOpacity(0.1)
                     : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(
+                    0), // Cambiar de 8 a 0 para hacer cuadrado
               ),
               child: Row(
                 children: [
