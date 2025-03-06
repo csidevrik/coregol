@@ -1,83 +1,86 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
 
-class Sidebar extends StatefulWidget {
+class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
 
   @override
-  State<Sidebar> createState() => _SidebarState();
-}
-
-class _SidebarState extends State<Sidebar> {
-  bool _expanded = false;
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      width: 70,
-      decoration: BoxDecoration(
-        color: AppTheme.themeColor,
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.25),
-            blurRadius: 5,
-            spreadRadius: 1,
-            offset: const Offset(-2, 0),
-          ),
-        ],
-      ),
+    return Container(
+      width: 60,
+      color: const Color(0xFFF5F5F5),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          _buildAnimatedButton(
-            Icons.add,
-            'Agregar dispositivo',
-            ['A', 'B'],
+          const SizedBox(height: 20),
+          _SidebarItem(
+            icon: Icons.home,
+            activeColor: Colors.purple,
+            onTap: () {},
           ),
-          _buildAnimatedButton(
-            Icons.refresh,
-            'Actualizar',
-            null,
+          _SidebarItem(
+            icon: Icons.settings,
+            activeColor: Colors.purple,
+            onTap: () {},
           ),
-          _buildAnimatedButton(
-            Icons.settings,
-            'Configuración',
-            ['help'],
+          _SidebarItem(
+            icon: Icons.person,
+            activeColor: Colors.purple,
+            onTap: () {},
           ),
+          const Spacer(),
+          _SidebarItem(
+            icon: Icons.help_outline,
+            activeColor: Colors.purple,
+            onTap: () {},
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
   }
+}
 
-  Widget _buildAnimatedButton(
-      IconData icon, String tooltip, List<String>? submenuItems) {
-    return Column(
-      children: [
-        IconButton(
-          icon: Icon(icon, color: AppTheme.textColor),
-          onPressed: () {
-            if (submenuItems != null) {
-              setState(() {
-                _expanded = !_expanded;
-              });
-            }
-          },
-          tooltip: tooltip,
+class _SidebarItem extends StatefulWidget {
+  final IconData icon;
+  final Color activeColor;
+  final VoidCallback onTap;
+
+  const _SidebarItem({
+    required this.icon,
+    required this.activeColor,
+    required this.onTap,
+  });
+
+  @override
+  State<_SidebarItem> createState() => _SidebarItemState();
+}
+
+class _SidebarItemState extends State<_SidebarItem> {
+  bool isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => isHovered = true),
+      onExit: (_) => setState(() => isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: isHovered
+                ? widget.activeColor.withOpacity(0.1)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(
+            widget.icon,
+            color: isHovered ? widget.activeColor : Colors.grey[600],
+            size: 24,
+          ),
         ),
-        if (submenuItems != null && _expanded)
-          ...submenuItems.map((item) => TextButton(
-                onPressed: () {},
-                child: Text(
-                  item,
-                  style: TextStyle(color: AppTheme.textColor),
-                ),
-              )),
-      ],
+      ),
     );
   }
 }
