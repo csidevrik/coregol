@@ -15,6 +15,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!a_front/lib/
 lib64/
 parts/
 sdist/
@@ -163,3 +164,39 @@ cython_debug/
 # Logs
 logs/*.log
 logs/*.log.*
+
+# Flutter/Dart specific ignores
+**/build/
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/packages
+**/.pub-cache
+**/.pub
+**/generated_plugin_registrant.dart
+
+# Ignorar archivos específicos de Flutter
+a_front/.metadata
+a_front/.flutter-plugins
+a_front/.flutter-plugins-dependencies
+a_front/.packages
+a_front/build/
+a_front/.dart_tool/
+a_front/.idea/
+a_front/.vscode/
+a_front/.pub-cache/
+a_front/.pub/
+a_front/generated_plugin_registrant.dart
+
+# Incluir archivos esenciales
+!a_front/lib/
+!a_front/pubspec.yaml
+!a_front/pubspec.lock
+!a_front/analysis_options.yaml
+!a_front/README.md
+!a_front/test/
+!a_front/web/
+!a_front/linux/
+!a_front/macos/
+!a_front/windows/
