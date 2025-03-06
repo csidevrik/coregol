@@ -135,6 +135,7 @@ class _SidebarItemState extends State<_SidebarItem> {
                     0), // Cambiar de 8 a 0 para hacer cuadrado
               ),
               child: Row(
+                mainAxisSize: MainAxisSize.min, // Agregar esta línea
                 children: [
                   Stack(
                     children: [
@@ -174,12 +175,16 @@ class _SidebarItemState extends State<_SidebarItem> {
                   ),
                   if (widget.isExpanded) ...[
                     const SizedBox(width: 12),
-                    Text(
-                      widget.label,
-                      style: TextStyle(
-                        color: (isHovered || widget.isSelected)
-                            ? widget.activeColor
-                            : Colors.grey[600],
+                    Expanded(
+                      // Envolver el Text en un Expanded
+                      child: Text(
+                        widget.label,
+                        style: TextStyle(
+                          color: (isHovered || widget.isSelected)
+                              ? widget.activeColor
+                              : Colors.grey[600],
+                        ),
+                        overflow: TextOverflow.ellipsis, // Agregar esta línea
                       ),
                     ),
                   ],
@@ -208,6 +213,7 @@ class _SidebarItemState extends State<_SidebarItem> {
           color: Colors.grey[600],
           fontSize: 14,
         ),
+        overflow: TextOverflow.ellipsis, // Agregar esta línea
       ),
     );
   }
