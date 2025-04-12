@@ -135,48 +135,49 @@ class _SidebarItemState extends State<_SidebarItem> {
                     0), // Cambiar de 8 a 0 para hacer cuadrado
               ),
               child: Row(
-                mainAxisSize: MainAxisSize.min, // Agregar esta línea
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Stack(
-                    children: [
-                      Icon(
-                        widget.icon,
-                        color: (isHovered || widget.isSelected)
-                            ? widget.activeColor
-                            : Colors.grey[600],
-                        size: 24,
-                      ),
-                      if (widget.badge != null)
-                        Positioned(
-                          right: -2,
-                          top: -2,
-                          child: Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            constraints: const BoxConstraints(
-                              minWidth: 16,
-                              minHeight: 16,
-                            ),
-                            child: Text(
-                              widget.badge!,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: Stack(
+                      children: [
+                        Icon(
+                          widget.icon,
+                          color: (isHovered || widget.isSelected)
+                              ? widget.activeColor
+                              : Colors.grey[600],
+                          size: 24,
+                        ),
+                        if (widget.badge != null)
+                          Positioned(
+                            right: -2,
+                            top: -2,
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              textAlign: TextAlign.center,
+                              constraints: const BoxConstraints(
+                                minWidth: 16,
+                                minHeight: 16,
+                              ),
+                              child: Text(
+                                widget.badge!,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                   if (widget.isExpanded) ...[
                     const SizedBox(width: 12),
                     Expanded(
-                      // Envolver el Text en un Expanded
                       child: Text(
                         widget.label,
                         style: TextStyle(
@@ -184,7 +185,7 @@ class _SidebarItemState extends State<_SidebarItem> {
                               ? widget.activeColor
                               : Colors.grey[600],
                         ),
-                        overflow: TextOverflow.ellipsis, // Agregar esta línea
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
