@@ -1,108 +1,144 @@
+
 # Proyecto Flutter + Python
 
-Este proyecto implementa una aplicación de escritorio moderna usando Flutter para el frontend y Python para el backend.
+Este proyecto implementa una aplicación de escritorio moderna usando **Flutter** para el frontend y **Python** para la orquestación y utilidades.
+
+---
 
 ## Estructura del Proyecto
 
 ```
+
 proyecto/
+
 ├── a_front/                    # Frontend con Flutter
-│   ├── lib/                    # Código fuente Flutter
-│   │   ├── main.dart          # Punto de entrada de Flutter
-│   │   ├── components/        # Componentes reutilizables
-│   │   │   ├── sidebar.dart   # Barra lateral de navegación
-│   │   │   └── topbar.dart    # Barra superior
-│   │   ├── theme/            # Configuración de temas
-│   │   │   └── app_theme.dart # Colores y estilos globales
-│   │   └── views/            # Pantallas de la aplicación
-│   │       └── home_view.dart # Vista principal
-│   └── pubspec.yaml           # Dependencias de Flutter
-├── utils/                     # Utilidades compartidas
-│   └── logger.py             # Configuración de logging
-├── logs/                     # Archivos de log
-│   └── app.log              # Registro de la aplicación
-└── root.py                  # Script principal de Python
+
+│   ├── lib/
+
+│   │   ├── main.dart           # Punto de entrada de Flutter
+
+│   │   ├── components/         # Componentes reutilizables
+
+│   │   │   ├── sidebar.dart    # Barra lateral de navegación
+
+│   │   │   └── topbar.dart     # Barra superior
+
+│   │   ├── theme/
+
+│   │   │   └── app_theme.dart  # Colores y estilos globales
+
+│   │   └── views/
+
+│   │       └── home_view.dart  # Vista principal
+
+│   └── pubspec.yaml            # Dependencias de Flutter
+
+├── b_back/                     # Backend y utilidades Python
+
+├── utils/                      # Utilidades compartidas (ej: logger.py)
+
+├── logs/                       # Archivos de log
+
+│   └── app.log
+
+├── root.py                     # Script principal de Python
+
+├── requirements.txt            # Dependencias Python
+
+└── README.md                   # Este archivo
+
 ```
 
-## Requisitos Previos
+---
 
-1. **Python 3.8+**
-2. **Flutter SDK**
-   - [Guía de instalación de Flutter](https://docs.flutter.dev/get-started/install)
-   - Después de instalar, ejecuta `flutter doctor` para verificar la instalación
+## Temas de Colores del Frontend
 
-## Configuración del Proyecto
+La aplicación utiliza un sistema de temas centralizado en `a_front/lib/theme/app_theme.dart`.
 
-1. Clona el repositorio:
+La paleta de colores principal es:
 
-```bash
-git clone <url-del-repositorio>
-cd <nombre-del-proyecto>
-```
+| Nombre        | Color    | Uso principal                                 |
 
-2. Instala las dependencias de Python:
+|---------------|----------|-----------------------------------------------|
 
-```bash
-pip install -r requirements.txt
-```
+| background    | #DDD5D0  | Fondo general de la app                       |
 
-3. Las dependencias de Flutter se instalarán automáticamente al ejecutar la aplicación.
+| surface       | #CFC0BD  | Tarjetas, paneles, menús                      |
 
-## Ejecutar la Aplicación
+| secondary     | #B8B8AA  | Elementos secundarios, sidebar                |
 
-Para iniciar la aplicación, simplemente ejecuta:
+| primary       | #7F9183  | AppBar, botones principales, topbar           |
 
-```bash
-python root.py
-```
+| accent        | #586F6B  | Botones destacados, FAB, íconos activos       |
 
-Este comando:
+| onPrimary     | blanco   | Texto sobre primary                           |
 
-1. Verifica la instalación de Flutter
-2. Instala las dependencias necesarias
-3. Inicializa el proyecto Flutter si es necesario
-4. Lanza la interfaz gráfica
+| onBackground  | negro    | Texto sobre fondo general                     |
 
-## Componentes Principales
+Puedes modificar estos colores en `app_theme.dart` para personalizar la apariencia de toda la app.
 
-### root.py
+---
 
-El script principal que coordina la ejecución de la aplicación:
+## Componentes Principales del Frontend
 
-- `verificar_flutter()`: Asegura que Flutter esté instalado y configurado
-- `ejecutar_frontend()`: Inicializa y ejecuta la interfaz de Flutter
-- `main()`: Coordina la ejecución y manejo de errores
+### Topbar
 
-### Frontend (Flutter)
+- Definido en `a_front/lib/components/topbar.dart`
+- Es la barra superior de la aplicación.
+- Usa el color `primary` como fondo y `onPrimary` para el texto.
+- Ejemplo de uso de tema:
 
-- **Theme**: Configuración centralizada de colores y estilos
-- **Components**:
-  - `Sidebar`: Barra lateral con navegación y menús desplegables
-  - `Topbar`: Barra superior con título y controles
-- **Views**:
-  - `HomeView`: Vista principal que integra los componentes
+  ```dart
 
-### Sistema de Logging
+  color:AppTheme.primary,
 
-- Registra eventos importantes en `logs/app.log`
-- Diferentes niveles de log (INFO, DEBUG, ERROR)
-- Rotación automática de archivos de log
+  style:TextStyle(color:AppTheme.onPrimary),
+
+  ```
+
+### Sidebar
+
+- Definido en `a_front/lib/components/sidebar.dart`
+- Barra lateral de navegación con menús y submenús.
+- Usa el color `secondary` o `surface` como fondo y `accent` para resaltar ítems activos.
+- Permite navegación entre vistas y muestra badges de notificaciones.
+
+### HomeView
+
+- Definido en `a_front/lib/views/home_view.dart`
+- Vista principal que integra el `Sidebar`, el `Topbar` y el contenido principal.
+- Aplica el color de fondo global (`background`) y organiza la estructura general de la pantalla.
+
+---
+
+## Cómo modificar el tema
+
+1. Edita los colores en `a_front/lib/theme/app_theme.dart`.
+2. Usa los colores semánticos (`primary`, `background`, `surface`, etc.) en tus widgets.
+3. Para cambiar el color de fondo de un widget:
+
+   ```dart
+
+   color:AppTheme.surface,
+
+   ```
+4. Para cambiar el color del texto:
+
+   ```dart
+
+   style:TextStyle(color:AppTheme.onPrimary),
+
+   ```
+
+---
 
 ## Desarrollo
 
-### Agregar Nuevas Vistas
+- Para agregar nuevas vistas, crea un archivo en `a_front/lib/views/` y actualiza la navegación en el Sidebar.
+- Para modificar el tema, edita `app_theme.dart`.
+- Para agregar nuevos componentes reutilizables, usa la carpeta `components/`.
 
-1. Crea un nuevo archivo en `a_front/lib/views/`
-2. Implementa un widget de Flutter
-3. Actualiza la navegación en el Sidebar
-
-### Modificar el Tema
-
-Edita `a_front/lib/theme/app_theme.dart` para cambiar:
-
-- Colores
-- Tipografía
-- Estilos de componentes
+---
 
 ## Próximos Pasos
 
@@ -112,14 +148,18 @@ Edita `a_front/lib/theme/app_theme.dart` para cambiar:
 - [ ] API REST
 - [ ] Tests automatizados
 
+---
+
 ## Contribuir
 
-1. Fork el repositorio
+1. Haz fork del repositorio
 2. Crea una rama para tu feature
 3. Commit tus cambios
 4. Push a la rama
 5. Crea un Pull Request
 
+---
+
 ## Licencia
 
-[Especificar licenci]
+[Especificar licencia]

@@ -30,7 +30,6 @@ class _SidebarState extends State<Sidebar> {
             onTap: () => _handleItemClick(0),
             subItems: const ['Dashboard', 'Actividad', 'Reportes'],
             expandedIndex: expandedIndex,
-            badge: '3',
           ),
           _SidebarItem(
             icon: Icons.settings,
@@ -41,7 +40,6 @@ class _SidebarState extends State<Sidebar> {
             onTap: () => _handleItemClick(1),
             subItems: const ['General', 'Seguridad', 'Notificaciones'],
             expandedIndex: expandedIndex,
-            badge: '2',
           ),
           _SidebarItem(
             icon: Icons.person,
@@ -61,7 +59,7 @@ class _SidebarState extends State<Sidebar> {
             isExpanded: isExpanded,
             isSelected: expandedIndex == 3,
             onTap: () => _handleItemClick(3),
-            subItems: const ['Soporte', 'FAQ', 'Contacto'],
+            subItems: const ['Soporte', 'FAQ', 'About'],
             expandedIndex: expandedIndex,
           ),
           const SizedBox(height: 20),
@@ -219,4 +217,48 @@ class _SidebarItemState extends State<_SidebarItem> {
       ),
     );
   }
+}
+
+void showAboutDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Container(
+        width: 400,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: AppTheme.surface,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.info_outline, size: 48, color: AppTheme.primary),
+            const SizedBox(height: 16),
+            Text(
+              "Acerca de la aplicación",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              "Aquí puedes poner información sobre la app, versión, autor, novedades, etc.",
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text("Cerrar"),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }
