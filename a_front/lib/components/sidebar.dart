@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class Sidebar extends StatefulWidget {
   const Sidebar({super.key});
@@ -16,14 +17,14 @@ class _SidebarState extends State<Sidebar> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       width: isExpanded ? 200 : 60,
-      color: const Color(0xFFF5F5F5),
+      color: AppTheme.background,
       child: Column(
         children: [
           const SizedBox(height: 20),
           _SidebarItem(
             icon: Icons.home,
             label: 'Inicio',
-            activeColor: const Color.fromARGB(255, 97, 207, 202),
+            activeColor: AppTheme.accent,
             isExpanded: isExpanded,
             isSelected: expandedIndex == 0,
             onTap: () => _handleItemClick(0),
@@ -34,7 +35,7 @@ class _SidebarState extends State<Sidebar> {
           _SidebarItem(
             icon: Icons.settings,
             label: 'Configuración',
-            activeColor: const Color.fromARGB(255, 97, 207, 202),
+            activeColor: AppTheme.accent,
             isExpanded: isExpanded,
             isSelected: expandedIndex == 1,
             onTap: () => _handleItemClick(1),
@@ -45,7 +46,7 @@ class _SidebarState extends State<Sidebar> {
           _SidebarItem(
             icon: Icons.person,
             label: 'Perfil',
-            activeColor: const Color.fromARGB(255, 97, 207, 202),
+            activeColor: AppTheme.accent,
             isExpanded: isExpanded,
             isSelected: expandedIndex == 2,
             onTap: () => _handleItemClick(2),
@@ -56,7 +57,7 @@ class _SidebarState extends State<Sidebar> {
           _SidebarItem(
             icon: Icons.help_outline,
             label: 'Ayuda',
-            activeColor: const Color.fromARGB(255, 97, 207, 202),
+            activeColor: AppTheme.accent,
             isExpanded: isExpanded,
             isSelected: expandedIndex == 3,
             onTap: () => _handleItemClick(3),

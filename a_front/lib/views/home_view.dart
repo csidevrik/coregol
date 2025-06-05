@@ -10,13 +10,14 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.bgColor,
+      backgroundColor:
+          AppTheme.background, // Cambia el color de fondo a amarillo
       body: Column(
         children: [
           // Barra de título personalizada
           Container(
             height: 32,
-            color: AppTheme.bgColor,
+            color: AppTheme.background,
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onPanStart: (details) {
@@ -24,19 +25,20 @@ class HomeView extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 18),
                   const Text(
-                    'Mi Aplicación',
+                    'APP ETAPA SIEEMOV PAGO CONTROLLER',
                     style: TextStyle(
-                        color: Colors
-                            .black), // Cambia Colors.white a Colors.black o el color que prefieras
+                        color: AppTheme.onBackground,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
                   ),
                   const Spacer(),
                   // Botón minimizar
                   IconButton(
                     icon: const Icon(Icons.minimize,
                         color: Colors
-                            .black), // Cambia Colors.white a Colors.black o el color que prefieras
+                            .white), // Cambia Colors.white a Colors.black o el color que prefieras
                     onPressed: () async {
                       await windowManager.minimize();
                     },
@@ -45,7 +47,7 @@ class HomeView extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.close,
                         color: Colors
-                            .black), // Cambia Colors.white a Colors.black o el color que prefieras
+                            .redAccent), // Cambia Colors.white a Colors.black o el color que prefieras
                     onPressed: () async {
                       await windowManager.close();
                     },
@@ -68,7 +70,8 @@ class HomeView extends StatelessWidget {
                         padding: const EdgeInsets.all(20),
                         child: const Text(
                           'Contenido principal aquí',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(
+                              color: AppTheme.onBackground, fontSize: 24),
                         ),
                       ),
                     ],
