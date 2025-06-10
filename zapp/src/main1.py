@@ -3,11 +3,10 @@ import flet as ft
 from li.gradients import gradient
 
 # VARIABLES
-LIMIT_VD1_MAX=200
-LIMIT_VD1_MIN=100
-
-LIMIT_VD2_MAX=200
-LIMIT_VD2_MIN=100
+LIMIT_VD1_MAX = 200
+LIMIT_VD1_MIN = 100
+LIMIT_VD2_MAX = 200
+LIMIT_VD2_MIN = 100
 
 COLOR1="#18684d"
 COLORR="#00e8b2"
@@ -55,6 +54,11 @@ async def main(page: ft.Page):
             ft.IconButton(ft.icons.EXIT_TO_APP, icon_color=COLOR2, on_click=button_exit),
         ],
     )
+
+    # --- Layout stateful containers ---
+    left01 = build_menu()
+    left02 = build_left_panel()
+    right01 = build_content()
 
     async def move_vertical_divider1(e: ft.DragUpdateEvent):
         if (e.delta_x > 0 and left01.width < LIMIT_VD1_MAX) or (e.delta_x < 0 and left01.width > LIMIT_VD1_MIN):
