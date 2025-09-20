@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color background = Color(0xFFDDD5D0); // Fondo general
   static const Color surface = Color(0xFFCFC0BD); // Tarjetas, paneles
   static const Color secondary = Color(0xFFB8B8AA); // Elementos secundarios
   static const Color primary = Color(0xFF7F9183); // AppBar, botones principales
@@ -10,6 +9,7 @@ class AppTheme {
   static const Color onSecondary = Colors.black87; // Texto sobre secondary
   static const Color onBackground = Colors.black87; // Texto sobre fondo
   static const Color onSurface = Colors.black87; // Texto sobre surface
+  static const Color background = Color(0xFFF9F4F2); // Fondo de la app
 
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primary,
