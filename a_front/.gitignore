@@ -1,6 +1,0 @@
-# Archivos y carpetas generados por Flutter
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-build/ 
