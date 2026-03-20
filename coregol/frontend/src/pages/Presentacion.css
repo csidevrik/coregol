@@ -72,17 +72,79 @@
 
 .timer-presentacion {
     position: absolute;
-    top: 30px;
+    top: 20px;           /* ← Más arriba */
     left: 50%;
     transform: translateX(-50%);
-    font-size: 5rem;
+    font-size: 4rem;     /* ← Un poco más pequeño */
     font-weight: bold;
     color: #ffd700;
     text-shadow: 
         0 0 40px rgba(255, 215, 0, 0.8),
         0 0 80px rgba(255, 215, 0, 0.5);
-    background: rgba(0, 0, 0, 0.5);
-    padding: 20px 50px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 40px;
+    padding-top: 50px;   /* ← Espacio para el badge */
     border-radius: 15px;
     backdrop-filter: blur(10px);
 }
+/* Tarjetas */
+.tarjetas-container {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-height: 60px;
+}
+
+.tarjeta {
+    width: 40px;
+    height: 60px;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-in;
+}
+
+.tarjeta-roja {
+    background: #ff0000;
+    box-shadow: 
+        0 0 20px rgba(255, 0, 0, 0.8),
+        0 0 40px rgba(255, 0, 0, 0.5);
+}
+
+.tarjeta-amarilla {
+    background: #ffdd00;
+    box-shadow: 
+        0 0 20px rgba(255, 221, 0, 0.8),
+        0 0 40px rgba(255, 221, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Badge de periodo */
+.periodo-badge {
+    position: absolute;
+    top: 10px;           /* ← Dentro del cronómetro */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 215, 0, 0.9);
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* .timer-presentacion {
+    position: relative;
+} */

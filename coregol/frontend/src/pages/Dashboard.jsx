@@ -9,6 +9,15 @@ import {
     ResetearMarcador,
     ActualizarNombreEquipoA,
     ActualizarNombreEquipoB,
+    AgregarTarjetaRojaA,
+    QuitarTarjetaRojaA,
+    AgregarTarjetaAmarillaA,
+    QuitarTarjetaAmarillaA,
+    AgregarTarjetaRojaB,
+    QuitarTarjetaRojaB,
+    AgregarTarjetaAmarillaB,
+    QuitarTarjetaAmarillaB,
+    CambiarPeriodo,
     IniciarCronometro,
     PausarCronometro,
     ReanudarCronometro,
@@ -28,9 +37,13 @@ function Dashboard() {
     const [tiempoMinutos, setTiempoMinutos] = useState(45)
     const [tiempoActual, setTiempoActual] = useState(0)
     const [timerActivo, setTimerActivo] = useState(false)
+    const [tarjetasRojasA, setTarjetasRojasA] = useState(0)
+    const [tarjetasRojasB, setTarjetasRojasB] = useState(0)
+    const [tarjetasAmarillasA, setTarjetasAmarillasA] = useState(0)
+    const [tarjetasAmarillasB, setTarjetasAmarillasB] = useState(0)
+    const [periodo, setPeriodo] = useState('1T')
 
     useEffect(() => {
-        // Cargar estado inicial
         const cargarEstado = async () => {
             const marcador = await ObtenerMarcador()
             setScoreA(marcador.equipoA)
@@ -39,6 +52,11 @@ function Dashboard() {
             setNombreB(marcador.nombreB)
             setNombreATemp(marcador.nombreA)
             setNombreBTemp(marcador.nombreB)
+            setTarjetasRojasA(marcador.tarjetasRojasA || 0)
+            setTarjetasRojasB(marcador.tarjetasRojasB || 0)
+            setTarjetasAmarillasA(marcador.tarjetasAmarillasA || 0)
+            setTarjetasAmarillasB(marcador.tarjetasAmarillasB || 0)
+            setPeriodo(marcador.periodo || '1T')
 
             const timer = await ObtenerEstadoCronometro()
             setTiempoActual(timer.tiempo)
@@ -46,12 +64,16 @@ function Dashboard() {
         }
         cargarEstado()
 
-        // Escuchar eventos
         EventsOn("marcador_actualizado", (data) => {
             setScoreA(data.equipoA)
             setScoreB(data.equipoB)
             if (data.nombreA) setNombreA(data.nombreA)
             if (data.nombreB) setNombreB(data.nombreB)
+            setTarjetasRojasA(data.tarjetasRojasA || 0)
+            setTarjetasRojasB(data.tarjetasRojasB || 0)
+            setTarjetasAmarillasA(data.tarjetasAmarillasA || 0)
+            setTarjetasAmarillasB(data.tarjetasAmarillasB || 0)
+            setPeriodo(data.periodo || '1T')
         })
 
         EventsOn("timer_actualizado", (data) => {
@@ -85,6 +107,11 @@ function Dashboard() {
         await IniciarCronometro(parseInt(tiempoMinutos))
     }
 
+    const handleCambiarPeriodo = async (nuevoPeriodo) => {
+        await CambiarPeriodo(nuevoPeriodo)
+        setPeriodo(nuevoPeriodo)
+    }
+
     return (
         <div className="dashboard">
             <header className="dashboard-header">
@@ -113,9 +140,28 @@ function Dashboard() {
                 </div>
                 {tiempoActual > 0 && (
                     <div className="timer-preview">
-                        ⏱️ {formatearTiempo(tiempoActual)}
+                        {periodo} - ⏱️ {formatearTiempo(tiempoActual)}
                     </div>
                 )}
+            </div>
+
+            {/* Selector de Periodo */}
+            <div className="seccion-periodo">
+                <h3>⚽ Periodo del Juego</h3>
+                <div className="periodo-selector">
+                    <button 
+                        className={periodo === '1T' ? 'btn-periodo activo' : 'btn-periodo'}
+                        onClick={() => handleCambiarPeriodo('1T')}
+                    >
+                        Primer Tiempo
+                    </button>
+                    <button 
+                        className={periodo === '2T' ? 'btn-periodo activo' : 'btn-periodo'}
+                        onClick={() => handleCambiarPeriodo('2T')}
+                    >
+                        Segundo Tiempo
+                    </button>
+                </div>
             </div>
 
             {/* Sección de Nombres */}
@@ -199,6 +245,106 @@ function Dashboard() {
                 </div>
             </div>
 
+            {/* Sección de Tarjetas */}
+            <div className="seccion-tarjetas">
+                <h3>🟥 🟨 Tarjetas</h3>
+                <div className="tarjetas-grid">
+                    {/* Tarjetas Equipo A */}
+                    <div className="tarjetas-equipo">
+                        <h4>{nombreA}</h4>
+                        
+                        <div className="tarjeta-control">
+                            <div className="tarjeta-info">
+                                <span className="tarjeta-icono roja">🟥</span>
+                                <span className="tarjeta-contador">{tarjetasRojasA}</span>
+                            </div>
+                            <div className="tarjeta-botones">
+                                <button 
+                                    className="btn-tarjeta-add"
+                                    onClick={async () => await AgregarTarjetaRojaA()}
+                                >
+                                    +
+                                </button>
+                                <button 
+                                    className="btn-tarjeta-remove"
+                                    onClick={async () => await QuitarTarjetaRojaA()}
+                                >
+                                    -
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="tarjeta-control">
+                            <div className="tarjeta-info">
+                                <span className="tarjeta-icono amarilla">🟨</span>
+                                <span className="tarjeta-contador">{tarjetasAmarillasA}</span>
+                            </div>
+                            <div className="tarjeta-botones">
+                                <button 
+                                    className="btn-tarjeta-add"
+                                    onClick={async () => await AgregarTarjetaAmarillaA()}
+                                >
+                                    +
+                                </button>
+                                <button 
+                                    className="btn-tarjeta-remove"
+                                    onClick={async () => await QuitarTarjetaAmarillaA()}
+                                >
+                                    -
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Tarjetas Equipo B */}
+                    <div className="tarjetas-equipo">
+                        <h4>{nombreB}</h4>
+                        
+                        <div className="tarjeta-control">
+                            <div className="tarjeta-info">
+                                <span className="tarjeta-icono roja">🟥</span>
+                                <span className="tarjeta-contador">{tarjetasRojasB}</span>
+                            </div>
+                            <div className="tarjeta-botones">
+                                <button 
+                                    className="btn-tarjeta-add"
+                                    onClick={async () => await AgregarTarjetaRojaB()}
+                                >
+                                    +
+                                </button>
+                                <button 
+                                    className="btn-tarjeta-remove"
+                                    onClick={async () => await QuitarTarjetaRojaB()}
+                                >
+                                    -
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="tarjeta-control">
+                            <div className="tarjeta-info">
+                                <span className="tarjeta-icono amarilla">🟨</span>
+                                <span className="tarjeta-contador">{tarjetasAmarillasB}</span>
+                            </div>
+                            <div className="tarjeta-botones">
+                                <button 
+                                    className="btn-tarjeta-add"
+                                    onClick={async () => await AgregarTarjetaAmarillaB()}
+                                >
+                                    +
+                                </button>
+                                <button 
+                                    className="btn-tarjeta-remove"
+                                    onClick={async () => await QuitarTarjetaAmarillaB()}
+                                >
+                                    -
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Cronómetro */}
             <div className="seccion-cronometro">
                 <h3>⏱️ Cronómetro</h3>
@@ -244,8 +390,10 @@ function Dashboard() {
             <div className="instrucciones">
                 <h3>ℹ️ Instrucciones:</h3>
                 <ul>
+                    <li>Selecciona el periodo del juego (1T o 2T)</li>
                     <li>Cambia los nombres de los equipos y haz clic en "Actualizar"</li>
                     <li>Usa los botones + y - para cambiar el marcador</li>
+                    <li>Agrega tarjetas rojas (🟥) o amarillas (🟨) según sea necesario</li>
                     <li>Configura el cronómetro e inícialo</li>
                     <li>Abre la Vista de Presentación para mostrar en otra pantalla</li>
                 </ul>

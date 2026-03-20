@@ -10,31 +10,40 @@ import (
 
 // App struct
 type App struct {
-	ctx          context.Context
-	scoreA       int
-	scoreB       int
-	nombreA      string
-	nombreB      string
-	timerActivo  bool
-	tiempoTotal  int // en segundos
-	tiempoActual int
-	mutex        sync.Mutex
+	ctx                context.Context
+	scoreA             int
+	scoreB             int
+	nombreA            string
+	nombreB            string
+	tarjetasRojasA     int
+	tarjetasRojasB     int
+	tarjetasAmarillasA int
+	tarjetasAmarillasB int
+	periodo            string // "1T" o "2T"
+	timerActivo        bool
+	tiempoTotal        int
+	tiempoActual       int
+	mutex              sync.Mutex
 }
 
 // NewApp creates a new App application struct
 func NewApp() *App {
 	return &App{
-		scoreA:       0,
-		scoreB:       0,
-		nombreA:      "Equipo A",
-		nombreB:      "Equipo B",
-		timerActivo:  false,
-		tiempoTotal:  0,
-		tiempoActual: 0,
+		scoreA:             0,
+		scoreB:             0,
+		nombreA:            "Equipo A",
+		nombreB:            "Equipo B",
+		tarjetasRojasA:     0,
+		tarjetasRojasB:     0,
+		tarjetasAmarillasA: 0,
+		tarjetasAmarillasB: 0,
+		periodo:            "1T",
+		timerActivo:        false,
+		tiempoTotal:        0,
+		tiempoActual:       0,
 	}
 }
 
-// startup is called when the app starts
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
@@ -48,7 +57,6 @@ func (a *App) IncrementarEquipoA() map[string]interface{} {
 	a.scoreA++
 	marcador := a.getMarcadorCompleto()
 	a.mutex.Unlock()
-
 	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
 	return marcador
 }
@@ -60,7 +68,6 @@ func (a *App) DecrementarEquipoA() map[string]interface{} {
 	}
 	marcador := a.getMarcadorCompleto()
 	a.mutex.Unlock()
-
 	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
 	return marcador
 }
@@ -70,7 +77,6 @@ func (a *App) IncrementarEquipoB() map[string]interface{} {
 	a.scoreB++
 	marcador := a.getMarcadorCompleto()
 	a.mutex.Unlock()
-
 	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
 	return marcador
 }
@@ -82,7 +88,6 @@ func (a *App) DecrementarEquipoB() map[string]interface{} {
 	}
 	marcador := a.getMarcadorCompleto()
 	a.mutex.Unlock()
-
 	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
 	return marcador
 }
@@ -99,7 +104,103 @@ func (a *App) ResetearMarcador() map[string]interface{} {
 	a.scoreB = 0
 	marcador := a.getMarcadorCompleto()
 	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
 
+// ============================================
+// MÉTODOS PARA TARJETAS
+// ============================================
+
+func (a *App) AgregarTarjetaRojaA() map[string]interface{} {
+	a.mutex.Lock()
+	a.tarjetasRojasA++
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
+
+func (a *App) QuitarTarjetaRojaA() map[string]interface{} {
+	a.mutex.Lock()
+	if a.tarjetasRojasA > 0 {
+		a.tarjetasRojasA--
+	}
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
+
+func (a *App) AgregarTarjetaAmarillaA() map[string]interface{} {
+	a.mutex.Lock()
+	a.tarjetasAmarillasA++
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
+
+func (a *App) QuitarTarjetaAmarillaA() map[string]interface{} {
+	a.mutex.Lock()
+	if a.tarjetasAmarillasA > 0 {
+		a.tarjetasAmarillasA--
+	}
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
+
+func (a *App) AgregarTarjetaRojaB() map[string]interface{} {
+	a.mutex.Lock()
+	a.tarjetasRojasB++
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
+
+func (a *App) QuitarTarjetaRojaB() map[string]interface{} {
+	a.mutex.Lock()
+	if a.tarjetasRojasB > 0 {
+		a.tarjetasRojasB--
+	}
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
+
+func (a *App) AgregarTarjetaAmarillaB() map[string]interface{} {
+	a.mutex.Lock()
+	a.tarjetasAmarillasB++
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
+
+func (a *App) QuitarTarjetaAmarillaB() map[string]interface{} {
+	a.mutex.Lock()
+	if a.tarjetasAmarillasB > 0 {
+		a.tarjetasAmarillasB--
+	}
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
+	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
+	return marcador
+}
+
+// ============================================
+// MÉTODOS PARA PERIODO
+// ============================================
+
+func (a *App) CambiarPeriodo(periodo string) map[string]interface{} {
+	a.mutex.Lock()
+	a.periodo = periodo
+	marcador := a.getMarcadorCompleto()
+	a.mutex.Unlock()
 	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
 	return marcador
 }
@@ -113,7 +214,6 @@ func (a *App) ActualizarNombreEquipoA(nombre string) map[string]interface{} {
 	a.nombreA = nombre
 	marcador := a.getMarcadorCompleto()
 	a.mutex.Unlock()
-
 	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
 	return marcador
 }
@@ -123,7 +223,6 @@ func (a *App) ActualizarNombreEquipoB(nombre string) map[string]interface{} {
 	a.nombreB = nombre
 	marcador := a.getMarcadorCompleto()
 	a.mutex.Unlock()
-
 	runtime.EventsEmit(a.ctx, "marcador_actualizado", marcador)
 	return marcador
 }
@@ -138,7 +237,6 @@ func (a *App) IniciarCronometro(minutos int) {
 	a.tiempoActual = a.tiempoTotal
 	a.timerActivo = true
 	a.mutex.Unlock()
-
 	go a.runTimer()
 }
 
@@ -165,7 +263,6 @@ func (a *App) ResetearCronometro() {
 	a.tiempoActual = 0
 	a.tiempoTotal = 0
 	a.mutex.Unlock()
-
 	runtime.EventsEmit(a.ctx, "timer_actualizado", map[string]interface{}{
 		"tiempo": 0,
 		"activo": false,
@@ -225,9 +322,14 @@ func (a *App) AbrirVentanaPresentacion() {
 
 func (a *App) getMarcadorCompleto() map[string]interface{} {
 	return map[string]interface{}{
-		"equipoA": a.scoreA,
-		"equipoB": a.scoreB,
-		"nombreA": a.nombreA,
-		"nombreB": a.nombreB,
+		"equipoA":            a.scoreA,
+		"equipoB":            a.scoreB,
+		"nombreA":            a.nombreA,
+		"nombreB":            a.nombreB,
+		"tarjetasRojasA":     a.tarjetasRojasA,
+		"tarjetasRojasB":     a.tarjetasRojasB,
+		"tarjetasAmarillasA": a.tarjetasAmarillasA,
+		"tarjetasAmarillasB": a.tarjetasAmarillasB,
+		"periodo":            a.periodo,
 	}
 }

@@ -357,3 +357,145 @@
 .dashboard::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 215, 0, 0.8);
 }
+/* Selector de Periodo */
+.seccion-periodo {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.seccion-periodo h3 {
+    margin-top: 0;
+    color: #ffd700;
+}
+
+.periodo-selector {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-periodo {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-periodo:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.6);
+}
+
+.btn-periodo.activo {
+    background: #ffd700;
+    color: #000;
+    border-color: #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Sección de Tarjetas */
+.seccion-tarjetas {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.seccion-tarjetas h3 {
+    margin-top: 0;
+    color: #ffd700;
+    text-align: center;
+}
+
+.tarjetas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.tarjetas-equipo {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.tarjetas-equipo h4 {
+    margin-top: 0;
+    color: #ffd700;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.tarjeta-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.tarjeta-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tarjeta-icono {
+    font-size: 2.5rem;
+}
+
+.tarjeta-contador {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    min-width: 40px;
+    text-align: center;
+}
+
+.tarjeta-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-tarjeta-add,
+.btn-tarjeta-remove {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-tarjeta-add {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-tarjeta-add:hover {
+    background: #45a049;
+    transform: scale(1.1);
+}
+
+.btn-tarjeta-remove {
+    background: #f44336;
+    color: white;
+}
+
+.btn-tarjeta-remove:hover {
+    background: #da190b;
+    transform: scale(1.1);
+}
