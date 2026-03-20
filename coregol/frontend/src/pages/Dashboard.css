@@ -1,0 +1,359 @@
+.dashboard {
+    min-height: 100vh;
+    max-height: 100vh;          /* ← NUEVO */
+    overflow-y: auto;            /* ← NUEVO */
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 20px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.btn-presentacion {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.btn-presentacion:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+.vista-previa {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.vista-previa h3 {
+    margin-top: 0;
+    color: #ffd700;
+}
+
+.marcador-mini {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.equipo-mini {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.equipo-mini .nombre {
+    font-size: 1rem;
+    color: #ddd;
+}
+
+.equipo-mini .score {
+    font-size: 3rem;
+    color: #ffd700;
+}
+
+.separador {
+    color: #888;
+}
+
+.controles-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.equipo-control {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.equipo-control h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #ffd700;
+}
+
+.score-display {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.botones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-incrementar,
+.btn-decrementar {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.btn-incrementar {
+    background: #2196F3;
+    color: white;
+}
+
+.btn-incrementar:hover {
+    background: #0b7dda;
+    transform: translateY(-2px);
+}
+
+.btn-decrementar {
+    background: #f44336;
+    color: white;
+}
+
+.btn-decrementar:hover {
+    background: #da190b;
+    transform: translateY(-2px);
+}
+
+.controles-centro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-reset {
+    background: #FF9800;
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    font-size: 1.3rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.btn-reset:hover {
+    background: #e68900;
+    transform: scale(1.05);
+}
+
+.instrucciones {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.instrucciones h3 {
+    margin-top: 0;
+    color: #ffd700;
+}
+
+.instrucciones ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.instrucciones li {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+/* Sección de Nombres */
+.seccion-nombres {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.seccion-nombres h3 {
+    margin-top: 0;
+    color: #ffd700;
+}
+
+.nombres-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-grupo label {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.input-grupo input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.input-grupo input:focus {
+    outline: none;
+    border-color: #ffd700;
+}
+
+.input-grupo button {
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.input-grupo button:hover {
+    background: #45a049;
+}
+
+/* Cronómetro */
+.seccion-cronometro {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.seccion-cronometro h3 {
+    margin-top: 0;
+    color: #ffd700;
+}
+
+.cronometro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.cronometro-display {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.cronometro-controles {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.input-grupo-timer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-grupo-timer label {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.input-grupo-timer input {
+    width: 80px;
+    padding: 8px;
+    font-size: 1.1rem;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-align: center;
+}
+
+.btn-timer {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    background: #2196F3;
+    color: white;
+    transition: all 0.3s;
+}
+
+.btn-timer:hover:not(:disabled) {
+    background: #0b7dda;
+    transform: translateY(-2px);
+}
+
+.btn-timer:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.timer-preview {
+    font-size: 2rem;
+    color: #ffd700;
+    margin-top: 15px;
+    font-weight: bold;
+}
+/* Scroll personalizado */
+.dashboard::-webkit-scrollbar {
+    width: 12px;
+}
+
+.dashboard::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.dashboard::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.5);
+    border-radius: 10px;
+}
+
+.dashboard::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.8);
+}

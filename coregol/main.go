@@ -18,8 +18,8 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "coregol",
-		Width:  1920,
-		Height: 1080,
+		Width:  670,
+		Height: 800,
 		// Frameless:   true,
 		StartHidden: false,
 
