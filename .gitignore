@@ -1,0 +1,114 @@
+# ==========================================
+# WAILS PROJECT - .gitignore
+# Repositorio: prj-flet
+# ==========================================
+
+# ==========================================
+# PROYECTO COREGOL - BINARIOS Y BUILDS
+# ==========================================
+coregol/build/bin/
+coregol/build/output/
+coregol/*.exe
+coregol/*.dll
+coregol/*.so
+coregol/*.dylib
+
+# ==========================================
+# COREGOL - FRONTEND (Node.js / React)
+# ==========================================
+# Dependencias de Node.js (pueden pesar cientos de MB)
+coregol/frontend/node_modules/
+coregol/frontend/dist/
+coregol/frontend/build/
+
+# Logs de npm
+coregol/frontend/npm-debug.log*
+coregol/frontend/yarn-debug.log*
+coregol/frontend/yarn-error.log*
+
+# Archivos de caché
+coregol/frontend/.npm
+coregol/frontend/.yarn
+coregol/frontend/.pnp
+coregol/frontend/.pnp.js
+
+# ==========================================
+# COREGOL - BINDINGS AUTO-GENERADOS
+# ==========================================
+# Wails genera estos automáticamente
+coregol/frontend/wailsjs/go/
+coregol/frontend/wailsjs/runtime/
+
+# ==========================================
+# COREGOL - BACKEND (Go)
+# ==========================================
+coregol/vendor/
+coregol/*.test
+coregol/*.out
+coregol/*.prof
+
+# ==========================================
+# ARCHIVOS DE SISTEMA (GLOBALES - CUALQUIER PROYECTO)
+# ==========================================
+# macOS
+**/.DS_Store
+**/.AppleDouble
+**/.LSOverride
+**/._*
+
+# Windows
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
+**/$RECYCLE.BIN/
+
+# Linux
+**/*~
+**/.directory
+**/.Trash-*
+
+# ==========================================
+# IDEs Y EDITORES (GLOBALES)
+# ==========================================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JetBrains
+.idea/
+*.iml
+
+# Vim
+*.swp
+*.swo
+
+# ==========================================
+# VARIABLES DE ENTORNO (GLOBALES)
+# ==========================================
+**/.env
+**/.env.local
+**/.env.*.local
+
+# ==========================================
+# LOGS (GLOBALES)
+# ==========================================
+**/logs/
+**/*.log
+
+# ==========================================
+# ARCHIVOS TEMPORALES (GLOBALES)
+# ==========================================
+**/tmp/
+**/temp/
+**/*.tmp
+**/*.bak
+
+# ==========================================
+# CERTIFICADOS Y LLAVES (SEGURIDAD)
+# ==========================================
+**/*.pem
+**/*.key
+**/*.cert
+**/*.crt
+
+# ===================================
