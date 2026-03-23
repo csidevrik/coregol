@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+ body {
+    background: transparent;
+    font-family: 'Arial Black', sans-serif;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+  .barra {
+    display: flex;
+    align-items: stretch;
+    height: 64px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  }
+
+  .equipo {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 12px;
+    min-width: 200px;
+  }
+
+  .equipo-a {
+    background: #1a1a2e;
+    border-right: 3px solid #e53e3e;
+  }
+
+  .equipo-b {
+    background: #1a1a2e;
+    border-left: 3px solid #3182ce;
+  }
+
+  .nombre {
+    font-size: 1rem;
+    color: #af1d9c;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .goles {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #59c9a5;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .equipo-a .goles { margin-left: auto; }
+  .equipo-b .goles { margin-right: auto; }
+
+  .centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f6c90e;
+    padding: 0 20px;
+    gap: 2px;
+    min-width: 90px;
+  }
+
+  .timer {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: 0.05rem;
+  }
+
+  .periodo {
+    font-size: 0.65rem;
+    color: #a75feb;
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+  }
+
+  .tarjetas {
+    display: flex;
+    gap: 2px;
+    margin-top: 2px;
+  }
+
+  .t-roja     { width: 8px; height: 12px; background: #e53e3e; border-radius: 1px; }
+  .t-amarilla { width: 8px; height: 12px; background: #ecc94b; border-radius: 1px; }
+</style>
+</head>
+<body>
+
+<div class="barra">
+  <!-- Equipo A -->
+  <div class="equipo equipo-a">
+    <div>
+      <div class="nombre" id="nombreA">Equipo A</div>
+      <div class="tarjetas" id="tarjetasA"></div>
+    </div>
+    <div class="goles" id="golesA">0</div>
+  </div>
+
+  <!-- Centro -->
+  <div class="centro">
+    <div class="timer" id="timer">00:00</div>
+    <div class="periodo" id="periodo">1T</div>
+  </div>
+
+  <!-- Equipo B -->
+  <div class="equipo equipo-b">
+    <div class="goles" id="golesB">0</div>
+    <div>
+      <div class="nombre" id="nombreB">Equipo B</div>
+      <div class="tarjetas" id="tarjetasB"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const WS_URL = `ws://${location.host}/ws`
+  let ws
+
+  function renderTarjetas(id, rojas, amarillas) {
+    const el = document.getElementById(id)
+    el.innerHTML = ''
+    for (let i = 0; i < rojas; i++) {
+      const t = document.createElement('div')
+      t.className = 't-roja'
+      el.appendChild(t)
+    }
+    for (let i = 0; i < amarillas; i++) {
+      const t = document.createElement('div')
+      t.className = 't-amarilla'
+      el.appendChild(t)
+    }
+  }
+
+  function formatTimer(seg) {
+    const m = Math.floor(seg / 60).toString().padStart(2, '0')
+    const s = (seg % 60).toString().padStart(2, '0')
+    return `${m}:${s}`
+  }
+
+  function aplicarEstado(data) {
+    document.getElementById('nombreA').textContent = data.nombreA
+    document.getElementById('nombreB').textContent = data.nombreB
+    document.getElementById('golesA').textContent  = data.golesA
+    document.getElementById('golesB').textContent  = data.golesB
+    document.getElementById('periodo').textContent = data.periodo
+    document.getElementById('timer').textContent   = formatTimer(data.tiempoActual || 0)
+    renderTarjetas('tarjetasA', data.tarjetasRojasA, data.tarjetasAmarillasA)
+    renderTarjetas('tarjetasB', data.tarjetasRojasB, data.tarjetasAmarillasB)
+  }
+
+  function conectar() {
+    ws = new WebSocket(WS_URL)
+    ws.onmessage = (e) => {
+      const msg = JSON.parse(e.data)
+      if (msg.type === 'state') aplicarEstado(msg.data)
+    }
+    ws.onclose = () => setTimeout(conectar, 3000)
+    ws.onerror = () => ws.close()
+  }
+
+  conectar()
+</script>
+</body>
+</html>

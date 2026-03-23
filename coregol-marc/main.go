@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-//go:embed frontend/marc.html
+//go:embed frontend/marc.html frontend/overlay.html
 var frontendFS embed.FS
 
 var upgrader = websocket.Upgrader{
@@ -44,6 +44,13 @@ func main() {
 			return
 		}
 		go hub.ManejarConexion(conn)
+	})
+
+	// Overlay para OBS
+	http.HandleFunc("/overlay", func(w http.ResponseWriter, r *http.Request) {
+		data, _ := frontendFS.ReadFile("frontend/overlay.html")
+		w.Header().Set("Content-Type", "text/html")
+		w.Write(data)
 	})
 
 	log.Println("coregol-marc corriendo en :24700")
