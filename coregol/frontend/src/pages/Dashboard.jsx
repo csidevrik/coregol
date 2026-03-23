@@ -23,7 +23,7 @@ import {
     ReanudarCronometro,
     ResetearCronometro,
     ObtenerEstadoCronometro,
-    AbrirVentanaPresentacion
+    // AbrirVentanaPresentacion
 } from '../../wailsjs/go/main/App'
 import './Dashboard.css'
 
@@ -46,8 +46,8 @@ function Dashboard() {
     useEffect(() => {
         const cargarEstado = async () => {
             const marcador = await ObtenerMarcador()
-            setScoreA(marcador.equipoA)
-            setScoreB(marcador.equipoB)
+            setScoreA(marcador.golesA)
+            setScoreB(marcador.golesB)
             setNombreA(marcador.nombreA)
             setNombreB(marcador.nombreB)
             setNombreATemp(marcador.nombreA)
@@ -65,8 +65,8 @@ function Dashboard() {
         cargarEstado()
 
         EventsOn("marcador_actualizado", (data) => {
-            setScoreA(data.equipoA)
-            setScoreB(data.equipoB)
+            setScoreA(data.golesA)
+            setScoreB(data.golesB)
             if (data.nombreA) setNombreA(data.nombreA)
             if (data.nombreB) setNombreB(data.nombreB)
             setTarjetasRojasA(data.tarjetasRojasA || 0)
@@ -74,6 +74,8 @@ function Dashboard() {
             setTarjetasAmarillasA(data.tarjetasAmarillasA || 0)
             setTarjetasAmarillasB(data.tarjetasAmarillasB || 0)
             setPeriodo(data.periodo || '1T')
+            if (data.tiempoActual !== undefined) setTiempoActual(data.tiempoActual)
+            if (data.timerActivo !== undefined) setTimerActivo(data.timerActivo)
         })
 
         EventsOn("timer_actualizado", (data) => {
@@ -116,12 +118,12 @@ function Dashboard() {
         <div className="dashboard">
             <header className="dashboard-header">
                 <h1>🎮 Panel de Control - Marcador</h1>
-                <button 
+                {/* <button 
                     className="btn-presentacion"
                     onClick={AbrirVentanaPresentacion}
                 >
                     📺 Abrir Vista de Presentación
-                </button>
+                </button> */}
             </header>
 
             {/* Vista Previa */}
@@ -199,13 +201,16 @@ function Dashboard() {
                     <div className="botones">
                         <button 
                             className="btn-incrementar"
-                            onClick={async () => setScoreA((await IncrementarEquipoA()).equipoA)}
+                            // onClick={async () => setScoreA((await IncrementarEquipoA()).equipoA)}
+                            onClick={async () => { await IncrementarEquipoA() }}
                         >
                             ➕ Incrementar
                         </button>
                         <button 
                             className="btn-decrementar"
-                            onClick={async () => setScoreA((await DecrementarEquipoA()).equipoA)}
+                            // onClick={async () => setScoreA((await DecrementarEquipoA()).equipoA)}
+                            onClick={async () => { await DecrementarEquipoA() }}
+
                         >
                             ➖ Decrementar
                         </button>
@@ -215,11 +220,13 @@ function Dashboard() {
                 <div className="controles-centro">
                     <button 
                         className="btn-reset"
-                        onClick={async () => {
-                            const m = await ResetearMarcador()
-                            setScoreA(m.equipoA)
-                            setScoreB(m.equipoB)
-                        }}
+                        // onClick={async () => {
+                        //     const m = await ResetearMarcador()
+                        //     setScoreA(m.equipoA)
+                        //     setScoreB(m.equipoB)
+                        // }}
+                        onClick={async () => { await ResetearMarcador() }}
+
                     >
                         🔄 Resetear Marcador
                     </button>
@@ -231,13 +238,14 @@ function Dashboard() {
                     <div className="botones">
                         <button 
                             className="btn-incrementar"
-                            onClick={async () => setScoreB((await IncrementarEquipoB()).equipoB)}
+                            // onClick={async () => setScoreB((await IncrementarEquipoB()).equipoB)}
+                            onClick={async () => { await IncrementarEquipoB() }}
                         >
                             ➕ Incrementar
                         </button>
                         <button 
                             className="btn-decrementar"
-                            onClick={async () => setScoreB((await DecrementarEquipoB()).equipoB)}
+                            // onClick={async () => setScoreB((await DecrementarEquipoB()).equipoB)}
                         >
                             ➖ Decrementar
                         </button>

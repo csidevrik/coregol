@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Coregol - Marcador</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Arial Black', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .periodo {
+    font-size: 1.5rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+    letter-spacing: 0.3rem;
+  }
+  .marcador {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+  .equipo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .nombre {
+    font-size: 2rem;
+    color: #f0f0f0;
+    letter-spacing: 0.1rem;
+  }
+  .goles {
+    font-size: 8rem;
+    font-weight: 900;
+    line-height: 1;
+    color: #ffffff;
+  }
+  .separador {
+    font-size: 6rem;
+    color: #555;
+    margin-top: -1rem;
+  }
+  .tarjetas {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .tarjeta-roja   { width: 18px; height: 26px; background: #e53e3e; border-radius: 3px; }
+  .tarjeta-amarilla { width: 18px; height: 26px; background: #ecc94b; border-radius: 3px; }
+  .estado-conexion {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.8rem;
+    color: #555;
+  }
+  .timer {
+    font-size: 2.5rem;
+    color: #f6c90e;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.2rem;
+  }
+  .conectado { color: #48bb78; }
+  .desconectado { color: #e53e3e; }
+</style>
+</head>
+<body>
+
+<div class="periodo" id="periodo">1T</div>
+<div class="timer" id="timer" style="display:none">
+    <span id="timerDisplay">00:00</span>
+</div>
+
+<div class="marcador">
+  <div class="equipo">
+    <div class="nombre" id="nombreA">Equipo A</div>
+    <div class="goles" id="golesA">0</div>
+    <div class="tarjetas" id="tarjetasA"></div>
+  </div>
+
+  <div class="separador">:</div>
+
+  <div class="equipo">
+    <div class="nombre" id="nombreB">Equipo B</div>
+    <div class="goles" id="golesB">0</div>
+    <div class="tarjetas" id="tarjetasB"></div>
+  </div>
+</div>
+
+<div class="estado-conexion" id="estadoConexion">Conectando...</div>
+
+<script>
+  const WS_URL = `ws://${location.host}/ws`
+  let ws, reconnectTimer
+
+  function renderTarjetas(containerId, rojas, amarillas) {
+    const el = document.getElementById(containerId)
+    el.innerHTML = ''
+    for (let i = 0; i < rojas; i++) {
+      const t = document.createElement('div')
+      t.className = 'tarjeta-roja'
+      el.appendChild(t)
+    }
+    for (let i = 0; i < amarillas; i++) {
+      const t = document.createElement('div')
+      t.className = 'tarjeta-amarilla'
+      el.appendChild(t)
+    }
+  }
+
+  function aplicarEstado(data) {
+    document.getElementById('nombreA').textContent = data.nombreA
+    document.getElementById('nombreB').textContent = data.nombreB
+    document.getElementById('golesA').textContent  = data.golesA
+    document.getElementById('golesB').textContent  = data.golesB
+    document.getElementById('periodo').textContent = data.periodo
+    renderTarjetas('tarjetasA', data.tarjetasRojasA, data.tarjetasAmarillasA)
+    renderTarjetas('tarjetasB', data.tarjetasRojasB, data.tarjetasAmarillasB)
+    // Timer
+    const timerEl = document.getElementById('timer')
+    const timerDisplay = document.getElementById('timerDisplay')
+    if (data.tiempoActual > 0 || data.timerActivo) {
+        const mins = Math.floor(data.tiempoActual / 60).toString().padStart(2, '0')
+        const secs = (data.tiempoActual % 60).toString().padStart(2, '0')
+        timerDisplay.textContent = `${mins}:${secs}`
+        timerEl.style.display = 'block'
+    } else {
+        timerEl.style.display = 'none'
+    }
+  }
+
+  function conectar() {
+    ws = new WebSocket(WS_URL)
+    const indicador = document.getElementById('estadoConexion')
+
+    ws.onopen = () => {
+      indicador.textContent = '● Conectado'
+      indicador.className = 'estado-conexion conectado'
+    }
+
+    ws.onmessage = (e) => {
+      const msg = JSON.parse(e.data)
+      if (msg.type === 'state') aplicarEstado(msg.data)
+    }
+
+    ws.onclose = () => {
+      indicador.textContent = '● Sin conexión - reintentando...'
+      indicador.className = 'estado-conexion desconectado'
+      reconnectTimer = setTimeout(conectar, 3000)
+    }
+
+    ws.onerror = () => ws.close()
+  }
+
+  conectar()
+</script>
+</body>
+</html>

@@ -3,6 +3,11 @@
 # Repositorio: prj-flet
 # ==========================================
 
+# coregol-marc
+coregol-marc/bin/
+# coregol-marc/coregol-marc
+coregol-marc/coregol-marc.exe
+
 # ==========================================
 # PROYECTO COREGOL - BINARIOS Y BUILDS
 # ==========================================
