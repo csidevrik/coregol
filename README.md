@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Desde la carpeta coregol/
 
 wails dev
@@ -73,3 +74,7 @@ NOTAS:
 - Si falla npm install, verificar conexión a internet
 - Primera ejecución tarda más (descarga dependencias)
   ═══════════════════════════════════════════════════════
+=======
+# coregol
+Distributed system for real-time soccer match management, including scoring, player statistics, and event tracking.
+>>>>>>> 3587b573af77ccfa141716729303b51f7d08875d
