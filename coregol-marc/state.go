@@ -99,7 +99,13 @@ func (e *Estado) ProcesarComando(cmd Comando) {
 		e.TimerActivo = false
 		e.TiempoActual = 0
 		e.TiempoTotal = 0
+	case "switch_teams":
+		e.NombreA, e.NombreB = e.NombreB, e.NombreA
+		e.GolesA, e.GolesB = e.GolesB, e.GolesA
+		e.TarjetasRojasA, e.TarjetasRojasB = e.TarjetasRojasB, e.TarjetasRojasA
+		e.TarjetasAmarillasA, e.TarjetasAmarillasB = e.TarjetasAmarillasB, e.TarjetasAmarillasA
 	}
+
 }
 
 func (e *Estado) Snapshot() Estado {

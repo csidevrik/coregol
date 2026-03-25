@@ -206,6 +206,10 @@ func (a *App) ObtenerEstadoCronometro() map[string]interface{} {
 	return map[string]interface{}{"tiempo": 0, "activo": false}
 }
 
+func (a *App) SwitchEquipos() {
+	a.enviarComando("switch_teams", "")
+}
+
 // func (a *App) runTimer() {
 // 	ticker := time.NewTicker(1 * time.Second)
 // 	defer ticker.Stop()
