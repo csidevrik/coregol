@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ==========================================
 # WAILS PROJECT - .gitignore
 # Repositorio: prj-flet
@@ -118,7 +117,6 @@ coregol/*.prof
 **/*.crt
 
 # ===================================
-=======
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
@@ -151,4 +149,3 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
->>>>>>> 3587b573af77ccfa141716729303b51f7d08875d
