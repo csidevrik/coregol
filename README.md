@@ -1,22 +1,13 @@
-<<<<<<< HEAD
-# Desde la carpeta coregol/
+# coregol
 
-wails dev
+Distributed system for real-time soccer match management, including scoring, player statistics, and event tracking.
 
-```
+Este proyecto contiene dos carpetas en este momento que son:
 
-**Primera vez tardará 3-5 minutos** (descarga dependencias de Go y compila).
-
----
-
-## 📄 GUÍA EN UN SOLO DOCUMENTO
-
-Te la escribo en formato que puedas copiar y pegar:
-```
-
-═══════════════════════════════════════════════════════
-    INSTALACIÓN PROYECTO COREGOL - MARCADOR DEPORTIVO
-═══════════════════════════════════════════════════════
+| nombres de carpetas | descripcion               |
+| ------------------- | ------------------------- |
+| coregol             | Este contiene al operador |
+| coregol-mar         | Este contiene el marcador |
 
 PASO 1: INSTALAR GO
 -------------------
@@ -49,7 +40,7 @@ PASO 4: CLONAR PROYECTO
 -----------------------
 
 > cd C:\dev
-> git clone https://github.com/TuUsuario/prj-flet.git
+> git clone https://github.com/csidevrik/coregol.git
 > cd prj-flet\coregol
 
 PASO 5: INSTALAR DEPENDENCIAS
@@ -67,14 +58,8 @@ PASO 6: EJECUTAR
 ¡Esperar 3-5 minutos la primera vez!
 Se abrirá la aplicación automáticamente.
 
-═══════════════════════════════════════════════════════
+
 NOTAS:
 
 - Si falla wails, reiniciar la terminal
 - Si falla npm install, verificar conexión a internet
-- Primera ejecución tarda más (descarga dependencias)
-  ═══════════════════════════════════════════════════════
-=======
-# coregol
-Distributed system for real-time soccer match management, including scoring, player statistics, and event tracking.
->>>>>>> 3587b573af77ccfa141716729303b51f7d08875d
