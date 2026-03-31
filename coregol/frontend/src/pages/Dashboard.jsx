@@ -17,6 +17,10 @@ import {
     QuitarTarjetaRojaB,
     AgregarTarjetaAmarillaB,
     QuitarTarjetaAmarillaB,
+    AgregarFaltaA,
+    QuitarFaltaA,
+    AgregarFaltaB,
+    QuitarFaltaB,
     CambiarPeriodo,
     SwitchEquipos,
     IniciarCronometro,
@@ -38,6 +42,8 @@ function Dashboard() {
     const [tarjetasRojasB, setTarjetasRojasB]     = useState(0)
     const [tarjetasAmarillasA, setTarjetasAmarillasA] = useState(0)
     const [tarjetasAmarillasB, setTarjetasAmarillasB] = useState(0)
+    const [faltasA, setFaltasA] = useState(0)
+    const [faltasB, setFaltasB] = useState(0)
     const [periodo, setPeriodo]                   = useState('1T')
     const [tiempoMinutos, setTiempoMinutos]       = useState(45)
     const [tiempoActual, setTiempoActual]         = useState(0)
@@ -56,6 +62,8 @@ function Dashboard() {
             setTarjetasRojasB(m.tarjetasRojasB || 0)
             setTarjetasAmarillasA(m.tarjetasAmarillasA || 0)
             setTarjetasAmarillasB(m.tarjetasAmarillasB || 0)
+            setFaltasA(m.faltasA || 0)
+            setFaltasB(m.faltasB || 0)
             setPeriodo(m.periodo || '1T')
 
             const t = await ObtenerEstadoCronometro()
@@ -73,6 +81,9 @@ function Dashboard() {
             setTarjetasRojasB(d.tarjetasRojasB || 0)
             setTarjetasAmarillasA(d.tarjetasAmarillasA || 0)
             setTarjetasAmarillasB(d.tarjetasAmarillasB || 0)
+            setFaltasA(d.faltasA || 0)
+            setFaltasB(d.faltasB || 0)
+
             setPeriodo(d.periodo || '1T')
             if (d.tiempoActual !== undefined) setTiempoActual(d.tiempoActual)
             if (d.timerActivo !== undefined)  setTimerActivo(d.timerActivo)
@@ -230,20 +241,40 @@ function Dashboard() {
                         </button>
                     </div>
                     <div className="tarjetas-inline">
-                        <div className="tarjeta-fila">
-                            <span className="tarjeta-sq roja" />
-                            <span className="tarjeta-num">{tarjetasRojasA}</span>
+                        <div className="tarjeta-col">
+                            <div className="tarjeta-top">
+                                <span className="tarjeta-sq roja" />
+                                <span className="tarjeta-num">{tarjetasRojasA}</span>
+                            </div>
                             <div className="tarjeta-btns">
-                                <button className="btn-card add" onClick={async () => await AgregarTarjetaRojaA()}>+</button>
-                                <button className="btn-card rem" onClick={async () => await QuitarTarjetaRojaA()}>−</button>
+                                <button className="btn-card add"
+                                    onClick={async () => await AgregarTarjetaRojaA()}>+</button>
+                                <button className="btn-card rem"
+                                    onClick={async () => await QuitarTarjetaRojaA()}>−</button>
                             </div>
                         </div>
-                        <div className="tarjeta-fila">
-                            <span className="tarjeta-sq amarilla" />
-                            <span className="tarjeta-num">{tarjetasAmarillasA}</span>
+                        <div className="tarjeta-col">
+                            <div className="tarjeta-top">
+                                <span className="tarjeta-sq amarilla" />
+                                <span className="tarjeta-num">{tarjetasAmarillasA}</span>
+                            </div>
                             <div className="tarjeta-btns">
-                                <button className="btn-card add" onClick={async () => await AgregarTarjetaAmarillaA()}>+</button>
-                                <button className="btn-card rem" onClick={async () => await QuitarTarjetaAmarillaA()}>−</button>
+                                <button className="btn-card add"
+                                    onClick={async () => await AgregarTarjetaAmarillaA()}>+</button>
+                                <button className="btn-card rem"
+                                    onClick={async () => await QuitarTarjetaAmarillaA()}>−</button>
+                            </div>
+                        </div>
+                        <div className="tarjeta-col">
+                            <div className="tarjeta-top">
+                                <span className="tarjeta-sq falta" />
+                                <span className="tarjeta-num">{faltasA}</span>
+                            </div>
+                            <div className="tarjeta-btns">
+                                <button className="btn-card add"
+                                    onClick={async () => await AgregarFaltaA()}>+</button>
+                                <button className="btn-card rem"
+                                    onClick={async () => await QuitarFaltaA()}>−</button>
                             </div>
                         </div>
                     </div>
@@ -264,20 +295,40 @@ function Dashboard() {
                         </button>
                     </div>
                     <div className="tarjetas-inline">
-                        <div className="tarjeta-fila">
-                            <span className="tarjeta-sq roja" />
-                            <span className="tarjeta-num">{tarjetasRojasB}</span>
+                        <div className="tarjeta-col">
+                            <div className="tarjeta-top">
+                                <span className="tarjeta-sq roja" />
+                                <span className="tarjeta-num">{tarjetasRojasB}</span>
+                            </div>
                             <div className="tarjeta-btns">
-                                <button className="btn-card add" onClick={async () => await AgregarTarjetaRojaB()}>+</button>
-                                <button className="btn-card rem" onClick={async () => await QuitarTarjetaRojaB()}>−</button>
+                                <button className="btn-card add"
+                                    onClick={async () => await AgregarTarjetaRojaB()}>+</button>
+                                <button className="btn-card rem"
+                                    onClick={async () => await QuitarTarjetaRojaB()}>−</button>
                             </div>
                         </div>
-                        <div className="tarjeta-fila">
-                            <span className="tarjeta-sq amarilla" />
-                            <span className="tarjeta-num">{tarjetasAmarillasB}</span>
+                        <div className="tarjeta-col">
+                            <div className="tarjeta-top">
+                                <span className="tarjeta-sq amarilla" />
+                                <span className="tarjeta-num">{tarjetasAmarillasB}</span>
+                            </div>
                             <div className="tarjeta-btns">
-                                <button className="btn-card add" onClick={async () => await AgregarTarjetaAmarillaB()}>+</button>
-                                <button className="btn-card rem" onClick={async () => await QuitarTarjetaAmarillaB()}>−</button>
+                                <button className="btn-card add"
+                                    onClick={async () => await AgregarTarjetaAmarillaB()}>+</button>
+                                <button className="btn-card rem"
+                                    onClick={async () => await QuitarTarjetaAmarillaB()}>−</button>
+                            </div>
+                        </div>
+                        <div className="tarjeta-col">
+                            <div className="tarjeta-top">
+                                <span className="tarjeta-sq falta" />
+                                <span className="tarjeta-num">{faltasB}</span>
+                            </div>
+                            <div className="tarjeta-btns">
+                                <button className="btn-card add"
+                                    onClick={async () => await AgregarFaltaB()}>+</button>
+                                <button className="btn-card rem"
+                                    onClick={async () => await QuitarFaltaB()}>−</button>
                             </div>
                         </div>
                     </div>

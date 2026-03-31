@@ -101,8 +101,8 @@ func (h *Hub) IniciarTicker() {
 		for range ticker.C {
 			h.estado.mu.Lock()
 			if h.estado.TimerActivo {
-				if h.estado.TiempoActual > 0 {
-					h.estado.TiempoActual--
+				if h.estado.TiempoActual < h.estado.TiempoTotal {
+					h.estado.TiempoActual++
 				} else {
 					h.estado.TimerActivo = false
 				}

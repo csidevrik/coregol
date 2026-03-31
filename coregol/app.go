@@ -167,6 +167,15 @@ func (a *App) AgregarTarjetaAmarillaB() { a.enviarComando("tarjeta_amarilla_b", 
 func (a *App) QuitarTarjetaAmarillaB()  { a.enviarComando("tarjeta_amarilla_b_quitar", "") }
 
 // ============================================
+// FALTAS
+// ============================================
+
+func (a *App) AgregarFaltaA() { a.enviarComando("falta_a", "") }
+func (a *App) QuitarFaltaA()  { a.enviarComando("falta_a_quitar", "") }
+func (a *App) AgregarFaltaB() { a.enviarComando("falta_b", "") }
+func (a *App) QuitarFaltaB()  { a.enviarComando("falta_b_quitar", "") }
+
+// ============================================
 // PERIODO
 // ============================================
 

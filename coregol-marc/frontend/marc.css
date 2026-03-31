@@ -65,3 +65,9 @@ body {
 }
 .conectado { color: #48bb78; }
 .desconectado { color: #e53e3e; }
+.faltas {
+  font-size: 1rem;
+  color: #517881;
+  letter-spacing: 0.1rem;
+  min-height: 1.2rem;
+}

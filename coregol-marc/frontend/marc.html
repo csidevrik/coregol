@@ -18,6 +18,7 @@
     <div class="nombre" id="nombreA">Equipo A</div>
     <div class="goles" id="golesA">0</div>
     <div class="tarjetas" id="tarjetasA"></div>
+    <div class="faltas" id="faltasA"></div>
   </div>
 
   <div class="separador">:</div>
@@ -26,6 +27,7 @@
     <div class="nombre" id="nombreB">Equipo B</div>
     <div class="goles" id="golesB">0</div>
     <div class="tarjetas" id="tarjetasB"></div>
+    <div class="faltas" id="faltasB"></div>
   </div>
 </div>
 
@@ -58,10 +60,14 @@
     document.getElementById('periodo').textContent = data.periodo
     renderTarjetas('tarjetasA', data.tarjetasRojasA, data.tarjetasAmarillasA)
     renderTarjetas('tarjetasB', data.tarjetasRojasB, data.tarjetasAmarillasB)
+    const fA = data.faltasA || 0
+    const fB = data.faltasB || 0
+    document.getElementById('faltasA').textContent = fA > 0 ? `Faltas: ${fA}` : ''
+    document.getElementById('faltasB').textContent = fB > 0 ? `Faltas: ${fB}` : ''
     // Timer
     const timerEl = document.getElementById('timer')
     const timerDisplay = document.getElementById('timerDisplay')
-    if (data.tiempoActual > 0 || data.timerActivo) {
+    if (data.timerActivo || data.tiempoActual > 0) {
         const mins = Math.floor(data.tiempoActual / 60).toString().padStart(2, '0')
         const secs = (data.tiempoActual % 60).toString().padStart(2, '0')
         timerDisplay.textContent = `${mins}:${secs}`

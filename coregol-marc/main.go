@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-//go:embed frontend/marc.html frontend/overlay.html
+//go:embed frontend
 var frontendFS embed.FS
 
 var upgrader = websocket.Upgrader{
@@ -50,6 +50,18 @@ func main() {
 	http.HandleFunc("/overlay", func(w http.ResponseWriter, r *http.Request) {
 		data, _ := frontendFS.ReadFile("frontend/overlay.html")
 		w.Header().Set("Content-Type", "text/html")
+		w.Write(data)
+	})
+
+	// Archivos estáticos (CSS, JS, etc.)
+	http.HandleFunc("/marc.css", func(w http.ResponseWriter, r *http.Request) {
+		data, _ := frontendFS.ReadFile("frontend/marc.css")
+		w.Header().Set("Content-Type", "text/css")
+		w.Write(data)
+	})
+	http.HandleFunc("/overlay.css", func(w http.ResponseWriter, r *http.Request) {
+		data, _ := frontendFS.ReadFile("frontend/overlay.css")
+		w.Header().Set("Content-Type", "text/css")
 		w.Write(data)
 	})
 

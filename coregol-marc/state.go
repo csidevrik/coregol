@@ -16,6 +16,8 @@ type Estado struct {
 	TarjetasRojasB     int    `json:"tarjetasRojasB"`
 	TarjetasAmarillasA int    `json:"tarjetasAmarillasA"`
 	TarjetasAmarillasB int    `json:"tarjetasAmarillasB"`
+	FaltasA            int    `json:"faltasA"`
+	FaltasB            int    `json:"faltasB"`
 	TimerActivo        bool   `json:"timerActivo"`
 	TiempoActual       int    `json:"tiempoActual"`
 	TiempoTotal        int    `json:"tiempoTotal"`
@@ -53,6 +55,8 @@ func (e *Estado) ProcesarComando(cmd Comando) {
 		e.TarjetasRojasB = 0
 		e.TarjetasAmarillasA = 0
 		e.TarjetasAmarillasB = 0
+		e.FaltasA = 0
+		e.FaltasB = 0
 	case "set_name_a":
 		e.NombreA = cmd.Value
 	case "set_name_b":
@@ -83,11 +87,23 @@ func (e *Estado) ProcesarComando(cmd Comando) {
 		if e.TarjetasAmarillasB > 0 {
 			e.TarjetasAmarillasB--
 		}
+	case "falta_a":
+		e.FaltasA++
+	case "falta_a_quitar":
+		if e.FaltasA > 0 {
+			e.FaltasA--
+		}
+	case "falta_b":
+		e.FaltasB++
+	case "falta_b_quitar":
+		if e.FaltasB > 0 {
+			e.FaltasB--
+		}
 	case "timer_iniciar":
 		minutos := 0
 		fmt.Sscanf(cmd.Value, "%d", &minutos)
 		e.TiempoTotal = minutos * 60
-		e.TiempoActual = e.TiempoTotal
+		e.TiempoActual = 0
 		e.TimerActivo = true
 	case "timer_pausar":
 		e.TimerActivo = false
@@ -104,6 +120,7 @@ func (e *Estado) ProcesarComando(cmd Comando) {
 		e.GolesA, e.GolesB = e.GolesB, e.GolesA
 		e.TarjetasRojasA, e.TarjetasRojasB = e.TarjetasRojasB, e.TarjetasRojasA
 		e.TarjetasAmarillasA, e.TarjetasAmarillasB = e.TarjetasAmarillasB, e.TarjetasAmarillasA
+		e.FaltasA, e.FaltasB = e.FaltasB, e.FaltasA
 	}
 
 }
@@ -121,6 +138,8 @@ func (e *Estado) Snapshot() Estado {
 		TarjetasRojasB:     e.TarjetasRojasB,
 		TarjetasAmarillasA: e.TarjetasAmarillasA,
 		TarjetasAmarillasB: e.TarjetasAmarillasB,
+		FaltasA:            e.FaltasA,
+		FaltasB:            e.FaltasB,
 		TimerActivo:        e.TimerActivo,
 		TiempoActual:       e.TiempoActual,
 		TiempoTotal:        e.TiempoTotal,
